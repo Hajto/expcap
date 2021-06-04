@@ -44,11 +44,7 @@ defimpl String.Chars, for: ExPcap do
     Packets
     -------
 
-    #{
-      item.packets
-      |> Enum.map(&String.Chars.to_string/1)
-      |> Enum.join("\n\n")
-    }
+    #{item.packets |> Enum.map(&String.Chars.to_string/1) |> Enum.join("\n\n")}
 
     """
   end

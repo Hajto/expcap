@@ -1,5 +1,4 @@
 defmodule ExPcap.Binaries do
-
   @moduledoc """
   This module provides utility functions for dealing with binaries.
 
@@ -63,7 +62,7 @@ defmodule ExPcap.Binaries do
 
   @spec to_list(<<>>, [any]) :: [any]
   def to_list(<<>>, acc) do
-    Enum.reverse acc
+    Enum.reverse(acc)
   end
 
   @doc """
@@ -84,7 +83,7 @@ defmodule ExPcap.Binaries do
   """
   @spec to_list(binary, list) :: list
   def to_list(b, acc) do
-    <<a :: size(8), rest :: binary>> = b
+    <<a::size(8), rest::binary>> = b
     to_list(rest, [a | acc])
   end
 
@@ -109,7 +108,7 @@ defmodule ExPcap.Binaries do
 
   """
   @spec reverse_binary(binary, binary) :: binary
-  def reverse_binary(<<h :: bytes-size(1), t :: binary>>, acc) do
+  def reverse_binary(<<h::bytes-size(1), t::binary>>, acc) do
     reverse_binary(t, h <> acc)
   end
 
@@ -138,7 +137,7 @@ defmodule ExPcap.Binaries do
   """
   @spec to_uint4(binary) :: non_neg_integer
   def to_uint4(b) do
-    <<n :: unsigned-integer-size(4)>> = b
+    <<n::unsigned-integer-size(4)>> = b
     n
   end
 
@@ -153,7 +152,7 @@ defmodule ExPcap.Binaries do
   """
   @spec to_uint16(binary) :: non_neg_integer
   def to_uint16(b) do
-    <<n :: unsigned-integer-size(16)>> = b
+    <<n::unsigned-integer-size(16)>> = b
     n
   end
 
@@ -168,7 +167,7 @@ defmodule ExPcap.Binaries do
   """
   @spec to_uint32(binary) :: non_neg_integer
   def to_uint32(b) do
-    <<n :: unsigned-integer-size(32)>> = b
+    <<n::unsigned-integer-size(32)>> = b
     n
   end
 
@@ -183,7 +182,7 @@ defmodule ExPcap.Binaries do
   """
   @spec to_int32(binary) :: integer
   def to_int32(b) do
-    <<n :: signed-integer-size(32)>> = b
+    <<n::signed-integer-size(32)>> = b
     n
   end
 
@@ -198,7 +197,7 @@ defmodule ExPcap.Binaries do
       iex> ExPcap.Binaries.to_string(<<1, 2, 3, 4>>)
       "<<1, 2, 3, 4>>"
   """
-  @spec to_string(binary) :: String.t
+  @spec to_string(binary) :: String.t()
   def to_string(b) do
     Inspect.Algebra.to_doc(b, %Inspect.Opts{})
     |> Inspect.Algebra.format(80)
@@ -214,7 +213,7 @@ defmodule ExPcap.Binaries do
       #<<1, 2, 3, 4>>
       "... redacted ..."
   """
-  @spec to_raw(binary) :: String.t
+  @spec to_raw(binary) :: String.t()
   def to_raw(_b) do
     # to_string(b)
     "... redacted ..."
@@ -235,9 +234,8 @@ defmodule ExPcap.Binaries do
       "0xFF00"
 
   """
-  @spec to_hex(binary) :: String.t
+  @spec to_hex(binary) :: String.t()
   def to_hex(b) do
     "0x" <> Base.encode16(b)
   end
-
 end
